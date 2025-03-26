@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IOT Dashboard</title>
+
+    <!-- Import Module Client -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+        <!-- TODO -->
+        <p>Sensor Dashboard</p>
+
+        <!-- TAB -->
+        <input type="radio" id="tab1" name="tabs" checked />
+        <label for="tab1">Sensor 1</label>
+        <input type="radio" id="tab2" name="tabs" />
+        <label for="tab2">Sensor 2</label>
+
+        <!-- SENSOR A -->
+        <div class="tab-content sensor1-tab-content">
+            <div id="dataSensorA">...</div>
+            <canvas id="chartSensorA"></canvas>
+        </div>
+
+        <!-- SENSOR B -->
+        <div class="tab-content sensor2-tab-content">
+            <div id="dataSensorB">...</div>
+            <canvas id="chartSensorB"></canvas>
+        </div>
+        <script src="script.js"></script>
+  </body>
+</html>

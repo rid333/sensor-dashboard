@@ -1,0 +1,28 @@
+/* Untuk Tab */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+input {
+    display: none;
+}
+label {
+    padding: 10px 20px;
+    display: inline-block;
+    background: lightgray;
+    cursor: pointer;
+}
+input:checked + label {
+    background: gray;
+    color: white;
+}
+.tab-content {
+    display: none;
+    padding: 10px;
+}
+#tab1:checked ~ .sensor1-tab-content,
+#tab2:checked ~ .sensor2-tab-content {
+    display: block;
+}

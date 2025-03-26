@@ -1,0 +1,21 @@
+{
+    "name": "starter_template_iot",
+    "version": "1.0.0",
+    "description": "",
+    "license": "ISC",
+    "author": "",
+    "type": "commonjs",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "npx browser-sync start --proxy 'localhost:3000' --files 'app/*.html, app/*.js, app/*.css' & npx nodemon server.js"
+    },
+    "dependencies": {
+        "express": "^4.21.2",
+        "socket.io": "^4.8.1"
+    },
+    "devDependencies": {
+        "browser-sync": "^3.0.3",
+        "nodemon": "^3.1.9"
+    }
+}
