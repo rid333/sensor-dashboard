@@ -28,17 +28,17 @@ function updateChart(chart, label, value) {
 }
 
 // Table
-// let sensorATableData = [];
-// const tableSensorA = new gridjs.Grid({
-//   columns: ["Time", "Sensor A"],
-//   data: [],
-// }).render(document.getElementById("tableSensorA"));
+let sensorATableData = [];
+const tableSensorA = new gridjs.Grid({
+  columns: ["Time", "Sensor A"],
+  data: [],
+}).render(document.getElementById("tableSensorA"));
 
-// let sensorBTableData = [];
-// const tableSensorB = new gridjs.Grid({
-//   columns: ["Time", "Sensor B"],
-//   data: [],
-// }).render(document.getElementById("tableSensorB"));
+let sensorBTableData = [];
+const tableSensorB = new gridjs.Grid({
+  columns: ["Time", "Sensor B"],
+  data: [],
+}).render(document.getElementById("tableSensorB"));
 
 // Listen data dari server
 // TODO
@@ -57,11 +57,11 @@ socket.on("randomData", (data) => {
   updateChart(chartSensorA, data.time, data.sensorA);
   updateChart(chartSensorB, data.time, data.sensorB);
 
-  // sensorATableData.push([data.time, data.sensorA]);
-  // sensorBTableData.push([data.time, data.sensorB]);
+  sensorATableData.push([data.time, data.sensorA]);
+  sensorBTableData.push([data.time, data.sensorB]);
 
-  // tableSensorA.updateConfig({ data: sensorATableData }).forceRender();
-  // tableSensorB.updateConfig({ data: sensorBTableData }).forceRender();
+  tableSensorA.updateConfig({ data: sensorATableData }).forceRender();
+  tableSensorB.updateConfig({ data: sensorBTableData }).forceRender();
 });
 
 // Sensor A
