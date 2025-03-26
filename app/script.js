@@ -54,3 +54,7 @@ socket.on("averageDataSensor1", (data) => {
 socket.on("highestDataSensor1", (data) => {
   document.getElementById("highestSensorA").innerHTML = data;
 });
+
+socket.on("lowestDataSensor1", (data) => {
+  document.getElementById("lowestSensorA").innerHTML = data;
+});

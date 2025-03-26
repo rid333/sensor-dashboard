@@ -16,6 +16,7 @@ app.use(express.static("app"));
 let intervalStarted = false;
 let averageDataSensor1 = 0;
 let highestDataSensor1 = 0;
+let lowestDataSensor1 = 100;
 
 // Kirim data ke client via websockets
 io.on("connection", (socket) => {
@@ -36,10 +37,14 @@ io.on("connection", (socket) => {
       if (randomData.sensorA > highestDataSensor1) {
         highestDataSensor1 = randomData.sensorA;
       }
+      if (randomData.sensorA < lowestDataSensor1) {
+        lowestDataSensor1 = randomData.sensorA;
+      }
 
       io.emit("randomData", randomData);
       io.emit("averageDataSensor1", averageDataSensor1.toFixed(1));
       io.emit("highestDataSensor1", highestDataSensor1);
+      io.emit("lowestDataSensor1", lowestDataSensor1);
       console.log(randomData);
     }, 1000);
   }
