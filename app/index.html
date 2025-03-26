@@ -16,7 +16,7 @@
   </head>
   <body>
     <!-- TODO -->
-    <p>Sensor Dashboard</p>
+    <p class="title">Sensor Dashboard</p>
 
     <!-- TAB -->
     <input type="radio" id="tab1" name="tabs" checked />
@@ -26,24 +26,28 @@
 
     <!-- SENSOR A -->
     <div class="tab-content sensor1-tab-content">
-      <canvas id="chartSensorA"></canvas>
-      <div>
-        <div id="dataSensorA">...</div>
-        <div id="averageSensorA">...</div>
-        <div id="highestSensorA">...</div>
-        <div id="lowestSensorA">...</div>
+      <div class="container-graph-data">
+        <canvas id="chartSensorA" class="chart"></canvas>
+        <div class="sensor-data">
+          <div id="dataSensorA" class="box-data">...</div>
+          <div id="averageSensorA" class="box-data">...</div>
+          <div id="highestSensorA" class="box-data">...</div>
+          <div id="lowestSensorA" class="box-data">...</div>
+        </div>
       </div>
       <div id="tableSensorA"></div>
     </div>
 
     <!-- SENSOR B -->
     <div class="tab-content sensor2-tab-content">
-      <canvas id="chartSensorB"></canvas>
-      <div>
-        <div id="dataSensorB">...</div>
-        <div id="averageSensorB">...</div>
-        <div id="highestSensorB">...</div>
-        <div id="lowestSensorB">...</div>
+      <div class="container-graph-data">
+        <canvas id="chartSensorB" class="chart"></canvas>
+        <div class="sensor-data">
+          <div id="dataSensorB" class="box-data">...</div>
+          <div id="averageSensorB" class="box-data">...</div>
+          <div id="highestSensorB" class="box-data">...</div>
+          <div id="lowestSensorB" class="box-data">...</div>
+        </div>
       </div>
       <div id="tableSensorB"></div>
     </div>

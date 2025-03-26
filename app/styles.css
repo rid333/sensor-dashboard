@@ -26,3 +26,37 @@ input:checked + label {
 #tab2:checked ~ .sensor2-tab-content {
     display: block;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.container-graph-data {
+    display: flex;
+}
+
+.chart {
+    width: 900px !important;
+    height: 600px !important;
+}
+
+.sensor-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.box-data {
+    font-size: 20px;
+    font-weight: 400;
+    background-color: gray;
+    color: white;
+    height: fit-content;
+    width: fit-content;
+    padding: 20px;
+}

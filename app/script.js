@@ -89,3 +89,5 @@ socket.on("highestDataSensor2", (data) => {
 socket.on("lowestDataSensor2", (data) => {
   document.getElementById("lowestSensorB").innerHTML = data;
 });
+
+alert("Data terlalu tinggi");
