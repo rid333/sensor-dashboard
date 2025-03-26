@@ -50,3 +50,7 @@ socket.on("randomData", (data) => {
 socket.on("averageDataSensor1", (data) => {
   document.getElementById("averageSensorA").innerHTML = data;
 });
+
+socket.on("highestDataSensor1", (data) => {
+  document.getElementById("highestSensorA").innerHTML = data;
+});
