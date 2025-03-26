@@ -28,6 +28,17 @@ function updateChart(chart, label, value) {
 }
 
 // Table
+// let sensorATableData = [];
+// const tableSensorA = new gridjs.Grid({
+//   columns: ["Time", "Sensor A"],
+//   data: [],
+// }).render(document.getElementById("tableSensorA"));
+
+// let sensorBTableData = [];
+// const tableSensorB = new gridjs.Grid({
+//   columns: ["Time", "Sensor B"],
+//   data: [],
+// }).render(document.getElementById("tableSensorB"));
 
 // Listen data dari server
 // TODO
@@ -45,8 +56,15 @@ socket.on("randomData", (data) => {
   // Update Chart
   updateChart(chartSensorA, data.time, data.sensorA);
   updateChart(chartSensorB, data.time, data.sensorB);
+
+  // sensorATableData.push([data.time, data.sensorA]);
+  // sensorBTableData.push([data.time, data.sensorB]);
+
+  // tableSensorA.updateConfig({ data: sensorATableData }).forceRender();
+  // tableSensorB.updateConfig({ data: sensorBTableData }).forceRender();
 });
 
+// Sensor A
 socket.on("averageDataSensor1", (data) => {
   document.getElementById("averageSensorA").innerHTML = data;
 });
@@ -57,4 +75,17 @@ socket.on("highestDataSensor1", (data) => {
 
 socket.on("lowestDataSensor1", (data) => {
   document.getElementById("lowestSensorA").innerHTML = data;
+});
+
+// Sensor B
+socket.on("averageDataSensor2", (data) => {
+  document.getElementById("averageSensorB").innerHTML = data;
+});
+
+socket.on("highestDataSensor2", (data) => {
+  document.getElementById("highestSensorB").innerHTML = data;
+});
+
+socket.on("lowestDataSensor2", (data) => {
+  document.getElementById("lowestSensorB").innerHTML = data;
 });

@@ -14,9 +14,16 @@ app.use(express.static("app"));
 
 // Variable-variable penting
 let intervalStarted = false;
+
+// Sensor A
 let averageDataSensor1 = 0;
 let highestDataSensor1 = 0;
 let lowestDataSensor1 = 100;
+
+// SensorB
+let averageDataSensor2 = 0;
+let highestDataSensor2 = 0;
+let lowestDataSensor2 = 100;
 
 // Kirim data ke client via websockets
 io.on("connection", (socket) => {
@@ -33,6 +40,7 @@ io.on("connection", (socket) => {
         time: new Date().toLocaleTimeString(),
       };
 
+      // Sensor A
       averageDataSensor1 = (averageDataSensor1 + randomData.sensorA) / 2;
       if (randomData.sensorA > highestDataSensor1) {
         highestDataSensor1 = randomData.sensorA;
@@ -41,10 +49,26 @@ io.on("connection", (socket) => {
         lowestDataSensor1 = randomData.sensorA;
       }
 
+      // Sensor B
+      averageDataSensor2 = (averageDataSensor2 + randomData.sensorB) / 2;
+      if (randomData.sensorB > highestDataSensor2) {
+        highestDataSensor2 = randomData.sensorB;
+      }
+      if (randomData.sensorB < lowestDataSensor2) {
+        lowestDataSensor2 = randomData.sensorB;
+      }
+
       io.emit("randomData", randomData);
+
+      // Sensor A
       io.emit("averageDataSensor1", averageDataSensor1.toFixed(1));
       io.emit("highestDataSensor1", highestDataSensor1);
       io.emit("lowestDataSensor1", lowestDataSensor1);
+
+      // Sensor B
+      io.emit("averageDataSensor2", averageDataSensor2.toFixed(1));
+      io.emit("highestDataSensor2", highestDataSensor2);
+      io.emit("lowestDataSensor2", lowestDataSensor2);
       console.log(randomData);
     }, 1000);
   }

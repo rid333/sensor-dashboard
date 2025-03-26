@@ -8,6 +8,10 @@
     <!-- Import Module Client -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -22,20 +26,28 @@
 
     <!-- SENSOR A -->
     <div class="tab-content sensor1-tab-content">
+      <canvas id="chartSensorA"></canvas>
       <div>
         <div id="dataSensorA">...</div>
         <div id="averageSensorA">...</div>
         <div id="highestSensorA">...</div>
         <div id="lowestSensorA">...</div>
       </div>
-      <canvas id="chartSensorA"></canvas>
+      <div id="tableSensorA"></div>
     </div>
 
     <!-- SENSOR B -->
     <div class="tab-content sensor2-tab-content">
-      <div id="dataSensorB">...</div>
       <canvas id="chartSensorB"></canvas>
+      <div>
+        <div id="dataSensorB">...</div>
+        <div id="averageSensorB">...</div>
+        <div id="highestSensorB">...</div>
+        <div id="lowestSensorB">...</div>
+      </div>
+      <div id="tableSensorB"></div>
     </div>
     <script src="script.js"></script>
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
   </body>
 </html>
