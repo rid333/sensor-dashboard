@@ -14,6 +14,7 @@ app.use(express.static("app"));
 
 // Variable-variable penting
 let intervalStarted = false;
+let averageDataSensor1 = 0;
 
 // Kirim data ke client via websockets
 io.on("connection", (socket) => {
@@ -30,7 +31,10 @@ io.on("connection", (socket) => {
         time: new Date().toLocaleTimeString(),
       };
 
+      averageDataSensor1 = (averageDataSensor1 + randomData.sensorA) / 2;
+
       io.emit("randomData", randomData);
+      io.emit("averageDataSensor1", averageDataSensor1.toFixed(1));
       console.log(randomData);
     }, 1000);
   }

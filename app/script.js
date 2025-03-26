@@ -46,3 +46,7 @@ socket.on("randomData", (data) => {
   updateChart(chartSensorA, data.time, data.sensorA);
   updateChart(chartSensorB, data.time, data.sensorB);
 });
+
+socket.on("averageDataSensor1", (data) => {
+  document.getElementById("averageSensorA").innerHTML = data;
+});
