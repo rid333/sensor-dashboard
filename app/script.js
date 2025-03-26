@@ -27,6 +27,8 @@ function updateChart(chart, label, value) {
   chart.update();
 }
 
+// Table
+
 // Listen data dari server
 // TODO
 const ctxSensorA = document.getElementById("chartSensorA");
