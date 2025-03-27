@@ -3,11 +3,19 @@ const express = require("express");
 const http = require("http");
 const path = require("path");
 const { Server } = require("socket.io");
+const { SerialPort, ReadlineParser } = require("serialport");
 
 // Inisialisasi HTTP Server
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
+
+// Inisialisasi koneksi dari Arduino melalui SerialPort
+const port = new SerialPort({
+  path: "/dev/ttyACM0",
+  baudRate: 9600,
+});
+const parser = port.pipe(new ReadlineParser({ delimiter: "\r\n" }));
 
 // Serve semua file yang ada di folder app
 app.use(express.static("app"));
@@ -33,10 +41,11 @@ io.on("connection", (socket) => {
   if (!intervalStarted) {
     intervalStarted = true;
     // TODO
-    setInterval(() => {
+    parser.on("data", (data) => {
+      const line = data.split(",");
       const randomData = {
-        sensorA: Math.floor(Math.random() * 100),
-        sensorB: Math.floor(Math.random() * 100),
+        sensorA: parseInt(line[0]),
+        sensorB: parseInt(line[1]),
         time: new Date().toLocaleTimeString(),
       };
 
@@ -70,7 +79,7 @@ io.on("connection", (socket) => {
       io.emit("highestDataSensor2", highestDataSensor2);
       io.emit("lowestDataSensor2", lowestDataSensor2);
       console.log(randomData);
-    }, 1000);
+    });
   }
 
   // Log ke terminal jika client terhubung

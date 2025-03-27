@@ -32,12 +32,18 @@ let sensorATableData = [];
 const tableSensorA = new gridjs.Grid({
   columns: ["Time", "Sensor A"],
   data: [],
+  pagination: {
+    limit: 10,
+  },
 }).render(document.getElementById("tableSensorA"));
 
 let sensorBTableData = [];
 const tableSensorB = new gridjs.Grid({
   columns: ["Time", "Sensor B"],
   data: [],
+  pagination: {
+    limit: 10,
+  },
 }).render(document.getElementById("tableSensorB"));
 
 // Listen data dari server
@@ -89,5 +95,3 @@ socket.on("highestDataSensor2", (data) => {
 socket.on("lowestDataSensor2", (data) => {
   document.getElementById("lowestSensorB").innerHTML = data;
 });
-
-alert("Data terlalu tinggi");
