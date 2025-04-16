@@ -9,6 +9,7 @@ npm run dev
 
 Install dependencies
 ```bash
+# Inside dir
 npm install
 ```
 
