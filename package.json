@@ -1,5 +1,5 @@
 {
-    "name": "starter_template_iot",
+    "name": "sensor_dashboard",
     "version": "1.0.0",
     "description": "",
     "license": "ISC",
@@ -8,7 +8,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "npx browser-sync start --proxy 'localhost:3000' --files 'app/*.html, app/*.js, app/*.css' & npx nodemon server.js"
+        "dev": "npx nodemon server.js",
+        "tailwind": "npx tailwindcss -i ./app/input.css -o ./app/output.css --watch"
     },
     "dependencies": {
         "express": "^4.21.2",
@@ -16,7 +17,7 @@
         "socket.io": "^4.8.1"
     },
     "devDependencies": {
-        "browser-sync": "^3.0.3",
-        "nodemon": "^3.1.9"
+        "nodemon": "^3.1.9",
+        "tailwindcss": "^3.4.17"
     }
 }

@@ -1,99 +1,83 @@
-// Import module yang diperlukan
 const express = require("express");
 const http = require("http");
 const path = require("path");
 const { Server } = require("socket.io");
 const { SerialPort, ReadlineParser } = require("serialport");
 
-// Inisialisasi HTTP Server
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const socket = new Server(server);
 
-// Inisialisasi koneksi dari Arduino melalui SerialPort
 const port = new SerialPort({
-  path: "/dev/ttyACM0",
+  path: "/dev/ttyUSB0",
   baudRate: 9600,
 });
-const parser = port.pipe(new ReadlineParser({ delimiter: "\r\n" }));
+const parser = port.pipe(new ReadlineParser({ delimiter: "\n" }));
 
-// Serve semua file yang ada di folder app
 app.use(express.static("app"));
 
-// Variable-variable penting
-let intervalStarted = false;
+const createSensorStats = () => ({
+  average: 0,
+  highest: -Infinity,
+  lowest: Infinity,
+  count: 0,
+});
 
-// Sensor A
-let averageDataSensor1 = 0;
-let highestDataSensor1 = 0;
-let lowestDataSensor1 = 100;
+const sensors = {
+  A: createSensorStats(),
+  B: createSensorStats(),
+};
 
-// SensorB
-let averageDataSensor2 = 0;
-let highestDataSensor2 = 0;
-let lowestDataSensor2 = 100;
+const updateSensorStats = (sensor, value) => {
+  sensor.average = (sensor.average * sensor.count + value) / (sensor.count + 1);
+  sensor.count++;
+  sensor.highest = Math.max(sensor.highest, value);
+  sensor.lowest = Math.min(sensor.lowest, value);
+};
 
-// Kirim data ke client via websockets
-io.on("connection", (socket) => {
-  // Log ke terminal jika client terhubung
-  console.log("User connected");
+parser.on("data", (line) => {
+  const [sensorA, sensorB] = line.trim().split(",").map(Number);
+  // const sensorA = Math.floor(Math.random() * 100);
+  // const sensorB = Math.floor(Math.random() * 100);
+  const timestamp = new Date().toLocaleTimeString();
 
-  if (!intervalStarted) {
-    intervalStarted = true;
-    // TODO
-    parser.on("data", (data) => {
-      const line = data.split(",");
-      const randomData = {
-        sensorA: parseInt(line[0]),
-        sensorB: parseInt(line[1]),
-        time: new Date().toLocaleTimeString(),
-      };
+  if (isNaN(sensorA) || isNaN(sensorB)) return;
 
-      // Sensor A
-      averageDataSensor1 = (averageDataSensor1 + randomData.sensorA) / 2;
-      if (randomData.sensorA > highestDataSensor1) {
-        highestDataSensor1 = randomData.sensorA;
-      }
-      if (randomData.sensorA < lowestDataSensor1) {
-        lowestDataSensor1 = randomData.sensorA;
-      }
+  const sensorData = { sensorA, sensorB, time: timestamp };
 
-      // Sensor B
-      averageDataSensor2 = (averageDataSensor2 + randomData.sensorB) / 2;
-      if (randomData.sensorB > highestDataSensor2) {
-        highestDataSensor2 = randomData.sensorB;
-      }
-      if (randomData.sensorB < lowestDataSensor2) {
-        lowestDataSensor2 = randomData.sensorB;
-      }
+  updateSensorStats(sensors.A, sensorA);
+  updateSensorStats(sensors.B, sensorB);
 
-      io.emit("randomData", randomData);
+  socket.emit("sensorData", sensorData);
 
-      // Sensor A
-      io.emit("averageDataSensor1", averageDataSensor1.toFixed(1));
-      io.emit("highestDataSensor1", highestDataSensor1);
-      io.emit("lowestDataSensor1", lowestDataSensor1);
+  socket.emit("sensorStats", {
+    sensorA: {
+      average: sensors.A.average.toFixed(1),
+      highest: sensors.A.highest,
+      lowest: sensors.A.lowest,
+    },
+    sensorB: {
+      average: sensors.B.average.toFixed(1),
+      highest: sensors.B.highest,
+      lowest: sensors.B.lowest,
+    },
+  });
 
-      // Sensor B
-      io.emit("averageDataSensor2", averageDataSensor2.toFixed(1));
-      io.emit("highestDataSensor2", highestDataSensor2);
-      io.emit("lowestDataSensor2", lowestDataSensor2);
-      console.log(randomData);
-    });
-  }
+  console.log(sensorData);
+});
 
-  // Log ke terminal jika client terhubung
+socket.on("connection", (socket) => {
+  console.log("Connected");
+
   socket.on("disconnect", () => {
-    console.log("user disconnected");
+    console.log("Disconnected");
   });
 });
 
-// Serve app/index.html di root dir
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "app", "index.html"));
 });
 
-// Start server di port 3000
 server.listen(3000, () => {
   console.log("Server running at http://localhost:3000");
 });

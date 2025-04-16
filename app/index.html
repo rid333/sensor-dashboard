@@ -1,57 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IOT Dashboard</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>IOT Dashboard</title>
 
-    <!-- Import Module Client -->
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="styles.css" />
-    <link
-      href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- TODO -->
-    <p class="title">Sensor Dashboard</p>
+        <!-- Import Module Client -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="output.css" />
+        <link
+            href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/franken-ui@2.0.0/dist/css/core.min.css"
+        />
+    </head>
+    <body class="bg-white text-slate-800 p-6 font-inter">
+        <h1 class="text-3xl font-bold mb-8 tracking-tight">Sensor Dashboard</h1>
 
-    <!-- TAB -->
-    <input type="radio" id="tab1" name="tabs" checked />
-    <label for="tab1">Sensor 1</label>
-    <input type="radio" id="tab2" name="tabs" />
-    <label for="tab2">Sensor 2</label>
-
-    <!-- SENSOR A -->
-    <div class="tab-content sensor1-tab-content">
-      <div class="container-graph-data">
-        <canvas id="chartSensorA" class="chart"></canvas>
-        <div class="sensor-data">
-          <div id="dataSensorA" class="box-data">...</div>
-          <div id="averageSensorA" class="box-data">...</div>
-          <div id="highestSensorA" class="box-data">...</div>
-          <div id="lowestSensorA" class="box-data">...</div>
+        <!-- Tabs -->
+        <div class="flex space-x-2 mb-6">
+            <button id="tab1-btn" class="tab-btn px-4 py-2 rounded-md font-medium text-slate-100 bg-red-600">Sensor A</button>
+            <button id="tab2-btn" class="tab-btn px-4 py-2 rounded-md font-medium hover:bg-blue-50">Sensor B</button>
         </div>
-      </div>
-      <div id="tableSensorA"></div>
-    </div>
 
-    <!-- SENSOR B -->
-    <div class="tab-content sensor2-tab-content">
-      <div class="container-graph-data">
-        <canvas id="chartSensorB" class="chart"></canvas>
-        <div class="sensor-data">
-          <div id="dataSensorB" class="box-data">...</div>
-          <div id="averageSensorB" class="box-data">...</div>
-          <div id="highestSensorB" class="box-data">...</div>
-          <div id="lowestSensorB" class="box-data">...</div>
+        <!-- SENSOR A -->
+        <div id="tab1" class="tab-content space-y-6">
+            <div class="bg-slate-50 rounded-2xl p-6 shadow-sm">
+                <canvas id="chartSensorA" class="w-full max-h-[300px]"></canvas>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-slate-800">
+                <div class="bg-blue-100 rounded-xl p-4 text-center shadow">
+                    <p class="text-sm font-medium">Latest</p>
+                    <p id="dataSensorA" class="text-2xl font-bold">NaN</p>
+                </div>
+                <div class="bg-green-100 rounded-xl p-4 text-center shadow">
+                    <p class="text-sm font-medium">Average</p>
+                    <p id="averageSensorA" class="text-2xl font-bold">NaN</p>
+                </div>
+                <div class="bg-red-100 rounded-xl p-4 text-center shadow">
+                    <p class="text-sm font-medium">Highest</p>
+                    <p id="highestSensorA" class="text-2xl font-bold">NaN</p>
+                </div>
+                <div class="bg-yellow-100 rounded-xl p-4 text-center shadow">
+                    <p class="text-sm font-medium">Lowest</p>
+                    <p id="lowestSensorA" class="text-2xl font-bold">NaN</p>
+                </div>
+            </div>
+
+            <div id="tableSensorA" class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm"></div>
         </div>
-      </div>
-      <div id="tableSensorB"></div>
-    </div>
-    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
-    <script src="script.js"></script>
-  </body>
+
+        <!-- SENSOR B -->
+        <div id="tab2" class="tab-content hidden space-y-6">
+            <div class="bg-slate-50 rounded-2xl p-6 shadow-sm">
+                <canvas id="chartSensorB" class="w-full max-h-[300px]"></canvas>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-slate-800">
+                <div class="bg-blue-100 rounded-xl p-4 text-center shadow">
+                    <p class="text-sm font-medium">Latest</p>
+                    <p id="dataSensorB" class="text-2xl font-bold">NaN</p>
+                </div>
+                <div class="bg-green-100 rounded-xl p-4 text-center shadow">
+                    <p class="text-sm font-medium">Average</p>
+                    <p id="averageSensorB" class="text-2xl font-bold">NaN</p>
+                </div>
+                <div class="bg-red-100 rounded-xl p-4 text-center shadow">
+                    <p class="text-sm font-medium">Highest</p>
+                    <p id="highestSensorB" class="text-2xl font-bold">NaN</p>
+                </div>
+                <div class="bg-yellow-100 rounded-xl p-4 text-center shadow">
+                    <p class="text-sm font-medium">Lowest</p>
+                    <p id="lowestSensorB" class="text-2xl font-bold">NaN</p>
+                </div>
+            </div>
+
+            <div id="tableSensorB" class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm"></div>
+        </div>
+
+        <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+        <script src="script.js"></script>
+    </body>
 </html>
