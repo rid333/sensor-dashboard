@@ -7,6 +7,11 @@ Clone repo
 npm run dev
 ```
 
+Install dependencies
+```bash
+npm install
+```
+
 Start server
 ```bash
 npm run dev
