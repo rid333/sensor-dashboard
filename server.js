@@ -9,7 +9,7 @@ const server = http.createServer(app);
 const socket = new Server(server);
 
 const port = new SerialPort({
-  path: "/dev/ttyUSB0",
+  path: "/dev/ttyACM0",
   baudRate: 9600,
 });
 const parser = port.pipe(new ReadlineParser({ delimiter: "\n" }));
@@ -36,14 +36,18 @@ const updateSensorStats = (sensor, value) => {
 };
 
 parser.on("data", (line) => {
-  const [sensorA, sensorB] = line.trim().split(",").map(Number);
+  // const [sensorA, sensorB] = line.trim().split(",").map(Number);
+  const parts = line.trim().split(",");
+  const sensorA = Number(parts[0]);
+  const sensorB = Number(parts[1]);
+  const sensorC = parts[2];
   // const sensorA = Math.floor(Math.random() * 100);
   // const sensorB = Math.floor(Math.random() * 100);
   const timestamp = new Date().toLocaleTimeString();
 
   if (isNaN(sensorA) || isNaN(sensorB)) return;
 
-  const sensorData = { sensorA, sensorB, time: timestamp };
+  const sensorData = { sensorA, sensorB, sensorC, time: timestamp };
 
   updateSensorStats(sensors.A, sensorA);
   updateSensorStats(sensors.B, sensorB);

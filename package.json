@@ -8,7 +8,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "npx nodemon server.js",
+        "dev": "npx nodemon test.js",
         "tailwind": "npx tailwindcss -i ./app/input.css -o ./app/output.css --watch"
     },
     "dependencies": {

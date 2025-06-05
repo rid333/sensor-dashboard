@@ -25,6 +25,7 @@
         <div class="flex space-x-2 mb-6">
             <button id="tab1-btn" class="tab-btn px-4 py-2 rounded-md font-medium text-slate-100 bg-red-600">Sensor A</button>
             <button id="tab2-btn" class="tab-btn px-4 py-2 rounded-md font-medium hover:bg-blue-50">Sensor B</button>
+            <button id="tab3-btn" class="tab-btn px-4 py-2 rounded-md font-medium hover:bg-yellow-50">Sensor C</button>
         </div>
 
         <!-- SENSOR A -->
@@ -82,6 +83,48 @@
 
             <div id="tableSensorB" class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm"></div>
         </div>
+
+        <!-- Sensor C -->
+        <div id="tab3" class="tab-content hidden space-y-6">
+            <div class="bg-slate-50 rounded-2xl p-6 shadow-sm">
+                <canvas id="windRoseChart" class="w-full max-h-[300px]"></canvas>
+            </div>
+
+            <div class="flex justify-center text-slate-800">
+                <div class="bg-yellow-100 rounded-xl p-6 text-center shadow w-48">
+                    <p class="text-sm font-medium">Latest</p>
+                    <p id="dataSensorC" class="text-2xl font-bold text-yellow-600">Loading...</p>
+                </div>
+            </div>
+
+            <div id="tableSensorC" class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm"></div>
+        </div>
+
+<div id="tab3" class="tab-content hidden space-y-6">
+  <div class="bg-slate-50 rounded-2xl p-6 shadow-sm">
+    <canvas id="windRoseChart" class="w-full max-h-[300px]"></canvas>
+  </div>
+
+  <div class="flex justify-center">
+    <div
+      class="bg-yellow-50 rounded-2xl p-8 shadow-lg w-56 flex flex-col items-center space-y-2 border border-yellow-300"
+      style="box-shadow: 0 4px 10px rgba(250, 204, 21, 0.3);"
+    >
+      <p class="text-sm font-semibold text-yellow-700 tracking-wide uppercase">Latest</p>
+      <p
+        id="dataSensorC"
+        class="text-4xl font-extrabold text-yellow-600 drop-shadow-md"
+      >
+        Loading...
+      </p>
+    </div>
+  </div>
+
+  <div
+    id="tableSensorC"
+    class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm"
+  ></div>
+</div>
 
         <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
         <script src="script.js"></script>
